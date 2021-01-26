@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+if [[ $# -le 2
+#docker build --build-arg HTTP_PROXY=http://10.158.100.2:8080 --build-arg HTTPS_PROXY=http://10.158.100.2:8080 --build-arg OS_VERSION=
