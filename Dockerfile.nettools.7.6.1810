@@ -1,0 +1,12 @@
+FROM centos:7.6.1810
+
+ENV OS_VERSION=7.6.1810 \
+    HTTP_PROXY=http://10.158.100.2:8080 \
+    HTTPS_PROXY=http://10.158.100.2:8080 \
+    http_proxy=http://10.158.100.2:8080 \
+    https_proxy=http://10.158.100.2:8080 \
+
+# No Need Update below
+RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
+    yum install -y wget atop tcpdump iperf iproute iputils net-tools iftop ethtool traceroute nmap nmon smokeping strace htop qperf iotop lsof bind-utils &&  \
+    yum clean all
