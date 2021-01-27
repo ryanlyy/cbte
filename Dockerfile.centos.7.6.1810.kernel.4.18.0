@@ -1,14 +1,15 @@
 FROM centos:7.6.1810
 
-ENV HTTP_PROXY=http://10.158.100.2:8080 \
+ENV OS_VERSION=7.6.1810 \
+    HTTP_PROXY=http://10.158.100.2:8080 \
     HTTPS_PROXY=http://10.158.100.2:8080 \
     http_proxy=http://10.158.100.2:8080 \
     https_proxy=http://10.158.100.2:8080 \
-    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/bcc/tools:/usr/share/bpftrace/tools \
     KERN_VERSION=4.18.0-193.el8.x86_64 \
-    KERN_TAR=linux-4.18 \
     KERN_URL=https://mirrors.edge.kernel.org/pub/linux/kernel/v4.x \
-    OS_VERSION=7.6.1810
+    KERN_TAR=linux-4.18 \
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/bcc/tools:/usr/share/bpftrace/tools 
+    
 
 # No Need Update below
 RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
