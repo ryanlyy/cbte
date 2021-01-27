@@ -6,20 +6,24 @@ ENV HTTP_PROXY=http://10.158.100.2:8080 \
     https_proxy=http://10.158.100.2:8080 \
     PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/bcc/tools:/usr/share/bpftrace/tools \
     KERN_VERSION=4.18.0-193.el8.x86_64 \
+    KERN_TAR=linux-4.18 \
+    KERN_URL=https://mirrors.edge.kernel.org/pub/linux/kernel/v4.x \
     OS_VERSION=7.6.1810
 
-RUN echo "proxy=http://10.158.100.2:8080" >> /etc/yum.conf && \
+# No Need Update below
+RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
     curl -s https://repos.baslab.org/bpftools.repo --output /etc/yum.repos.d/bpftools.repo && \
     yum install -y wget gcc make bc curl flex bison elfutils-libelf-devel bcc bcc-tools bpftrace bpftrace-tools bpftool &&  \
     yum clean all
 
 RUN mkdir -p /usr/src/linux && \
     cd /usr/src/linux && \
-    wget https://mirrors.edge.kernel.org/pub/linux/kernel/v4.x/linux-4.18.tar.gz && \
-    gunzip linux-4.18.tar.gz && \
-    tar --strip-components=1 -xvf linux-4.18.tar -C /usr/src/linux
+    wget ${KERN_URL}/${KERN_TAR}.tar.gz && \
+    gunzip ${KERN_TAR}.tar.gz && \
+    tar --strip-components=1 -xvf ${KERN_TAR}.tar -C /usr/src/linux && \
+    rm -rf ${KERN_TAR}.tar
 
-COPY ./config-4.18.0-193.el8.x86_64 /usr/src/linux/.config
+COPY ./config-${KERN_VERSION} /usr/src/linux/.config
 
 RUN cd /usr/src/linux &&  \
     make ARCH=x86 olddefconfig && \
