@@ -12,5 +12,6 @@ RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
     yum install -y atop iftop htop iotop nethogs \
                    tcpdump iproute iputils net-tools \
                    ethtool traceroute nmap nmap-ncat nmon \
-                   strace iperf3 qperf lsof bind-utils wget && \
+                   strace iperf3 qperf lsof bind-utils wget \
+                   sysstat && \
     yum clean all
