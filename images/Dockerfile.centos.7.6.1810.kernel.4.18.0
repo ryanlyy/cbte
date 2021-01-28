@@ -14,7 +14,7 @@ ENV OS_VERSION=7.6.1810 \
 # No Need Update below
 RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
     curl -s https://repos.baslab.org/bpftools.repo --output /etc/yum.repos.d/bpftools.repo && \
-    yum install -y wget gcc make bc curl flex bison elfutils-libelf-devel bcc bcc-tools bpftrace bpftrace-tools bpftool &&  \
+    yum install -y wget gcc make bc curl flex bison elfutils-libelf-devel bcc bcc-tools bpftrace bpftrace-tools bpftool iproute &&  \
     yum clean all
 
 RUN mkdir -p /usr/src/linux && \
