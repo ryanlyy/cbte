@@ -155,5 +155,18 @@ nmap, nping, nc, ncat
 ## nmon
 systems administrator, tuner, benchmark tool
 
+# Tips
+## Linux 60 seconds Analysis
+1. uptime
+2. dmesg | tail
+3. vmstat 1
+4. mpstat -P all 1
+5 pidstat 1
+* iostat -xz 1
+* free -m
+* sar -n DEV 1
+* sar -n TCP,ETCP 1
+* top
+
 
 
