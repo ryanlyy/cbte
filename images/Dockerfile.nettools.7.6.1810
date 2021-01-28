@@ -8,9 +8,8 @@ ENV OS_VERSION=7.6.1810 \
 
 # No Need Update below
 RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
-    yum install -y epel-release
-
-RUN yum install -y atop iftop htop iotop nethogs \
+    yum install -y epel-release && \
+    yum install -y atop iftop htop iotop nethogs \
                    tcpdump iproute iputils net-tools \
                    ethtool traceroute nmap nmap-ncat nmon \
                    strace iperf3 qperf lsof bind-utils wget && \
