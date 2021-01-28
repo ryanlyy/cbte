@@ -51,30 +51,9 @@ tracepoint:syscalls:sys_enter_open
     int flags;
     umode_t mode;
 ```
-For example:
-```
-[root@foss-ssc-7 /]# bpftrace -e 'tracepoint:syscalls:sys_enter_open { printf("%s %s flags %d umode %d\n", comm, str(args->filename), args->flags, args->mode); }'
-Attaching 1 probe...
-sla-monitoring /proc/stat flags 0 umode 438
-elasticsearch[e /usr/share/elasticsearch/config flags 0 umode 0
-node /proc/self/stat flags 0 umode 53856
-node /sys/fs/cgroup/cpuacct/cpuacct.usage flags 524288 umode 438
-sla-monitoring /etc/exthostname flags 0 umode 438
-sla-monitoring /iotests//testfile_0 flags 65 umode 55520
-sla-monitoring /etc/exthostname flags 0 umode 438
-...
-```
 2. Monitoring open file
-   ```
+```
 [root@foss-ssc-7 /]# opensnoop -h
-usage: opensnoop [-h] [-T] [-U] [-x] [-p PID] [-t TID] [--cgroupmap CGROUPMAP]
-                 [--mntnsmap MNTNSMAP] [-u UID] [-d DURATION] [-n NAME] [-e]
-                 [-f FLAG_FILTER]
-
-Trace open() syscalls
-
-optional arguments:
-  -h, --help            show this help message and exit
   -T, --timestamp       include timestamp on output
   -U, --print-uid       print UID column
   -x, --failed          only show failed opens
@@ -91,22 +70,7 @@ optional arguments:
                         show extended fields
   -f FLAG_FILTER, --flag_filter FLAG_FILTER
                         filter on flags argument (e.g., O_WRONLY)
-
-examples:
-    ./opensnoop           # trace all open() syscalls
-    ./opensnoop -T        # include timestamps
-    ./opensnoop -U        # include UID
-    ./opensnoop -x        # only show failed opens
-    ./opensnoop -p 181    # only trace PID 181
-    ./opensnoop -t 123    # only trace TID 123
-    ./opensnoop -u 1000   # only trace UID 1000
-    ./opensnoop -d 10     # trace for 10 seconds only
-    ./opensnoop -n main   # only print process names containing "main"
-    ./opensnoop -e        # show extended fields
-    ./opensnoop -f O_WRONLY -f O_RDWR  # only print calls for writing
-    ./opensnoop --cgroupmap mappath  # only trace cgroups in this BPF map
-    ./opensnoop --mntnsmap mappath   # only trace mount namespaces in the map
-   ```
+```
 3. 
 
 # Network tool based debugging environment
