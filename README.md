@@ -40,10 +40,20 @@ kprobe:__x64_sys_execve
 ```
 
 ## Use Cases
-1. List all 'tracepoint' static instrument and arguments on each tracepoint
+1. List all instrument and arguments
 ```
 [root@foss-ssc-7 /]# bpftrace -l 'tracepoint:*' | wc -l
 1958
+[root@foss-ssc-7 ~]# bpftrace -l 'kprobe:*' | wc -l
+44472
+[root@foss-ssc-7 ~]#
+[root@foss-ssc-7 ~]# bpftrace -l 'kretprobe:*' | wc -l
+44472
+[root@foss-ssc-7 lib64]# bpftrace -l 'uprobe:./libpthread.so.0:*' |wc -l
+556
+[root@foss-ssc-7 lib64]
+```
+```
 [root@foss-ssc-7 /]# bpftrace -v -l 'tracepoint:syscalls:sys_enter_open'
 tracepoint:syscalls:sys_enter_open
     int __syscall_nr;
