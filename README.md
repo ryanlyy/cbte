@@ -39,50 +39,6 @@ kprobe:__x64_sys_execve
 }
 ```
 
-## Use Cases
-1. List all instrument and arguments
-```
-[root@foss-ssc-7 /]# bpftrace -l 'tracepoint:*' | wc -l
-1958
-[root@foss-ssc-7 ~]# bpftrace -l 'kprobe:*' | wc -l
-44472
-[root@foss-ssc-7 ~]#
-[root@foss-ssc-7 ~]# bpftrace -l 'kretprobe:*' | wc -l
-44472
-[root@foss-ssc-7 lib64]# bpftrace -l 'uprobe:./libpthread.so.0:*' |wc -l
-556
-[root@foss-ssc-7 lib64]
-```
-```
-[root@foss-ssc-7 /]# bpftrace -v -l 'tracepoint:syscalls:sys_enter_open'
-tracepoint:syscalls:sys_enter_open
-    int __syscall_nr;
-    const char * filename;
-    int flags;
-    umode_t mode;
-```
-2. Monitoring open file
-```
-[root@foss-ssc-7 /]# opensnoop -h
-  -T, --timestamp       include timestamp on output
-  -U, --print-uid       print UID column
-  -x, --failed          only show failed opens
-  -p PID, --pid PID     trace this PID only
-  -t TID, --tid TID     trace this TID only
-  --cgroupmap CGROUPMAP
-                        trace cgroups in this BPF map only
-  --mntnsmap MNTNSMAP   trace mount namespaces in this BPF map only
-  -u UID, --uid UID     trace this UID only
-  -d DURATION, --duration DURATION
-                        total duration of trace in seconds
-  -n NAME, --name NAME  only print process names containing this name
-  -e, --extended_fields
-                        show extended fields
-  -f FLAG_FILTER, --flag_filter FLAG_FILTER
-                        filter on flags argument (e.g., O_WRONLY)
-```
-3. 
-
 # Network tool based debugging environment
 ## lsof
 List open files
@@ -156,6 +112,28 @@ nmap, nping, nc, ncat
 systems administrator, tuner, benchmark tool
 
 # Tips
+## List all instrument and arguments
+```
+[root@foss-ssc-7 /]# bpftrace -l 'tracepoint:*' | wc -l
+1958
+[root@foss-ssc-7 ~]# bpftrace -l 'kprobe:*' | wc -l
+44472
+[root@foss-ssc-7 ~]#
+[root@foss-ssc-7 ~]# bpftrace -l 'kretprobe:*' | wc -l
+44472
+[root@foss-ssc-7 lib64]# bpftrace -l 'uprobe:./libpthread.so.0:*' |wc -l
+556
+[root@foss-ssc-7 lib64]
+```
+```
+[root@foss-ssc-7 /]# bpftrace -v -l 'tracepoint:syscalls:sys_enter_open'
+tracepoint:syscalls:sys_enter_open
+    int __syscall_nr;
+    const char * filename;
+    int flags;
+    umode_t mode;
+```
+
 ## Linux 60 seconds Analysis
 1. uptime
 ```
