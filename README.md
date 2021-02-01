@@ -249,15 +249,3 @@ Linux 4.18.0-193.el8.x86_64 (foss-ssc-7)        01/28/21        _x86_64_        
 ```
 10. top
 
-## BCC Useful Tools
-1. execsnoop
-2. opensnoop
-3. ext4slower
-4. biolatency
-5. biosnoop
-6. cachetat
-7. tcpconnect
-8. tcpaccept
-9. tcpretrans
-10. runqlat
-11. profile
