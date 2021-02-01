@@ -19,7 +19,8 @@ Now this project supports:
 ```
 ./bpfcli <imageid>
 
-./bpfcli  bpftools:7.6.1810-4.18.0-210126
+./bpfcli  bpftools:7.6.1810-4.18.0-210126 host
+./bpfcli bpftools:7.6.1810-4.18.0-20210127 container:9b53698015727fc31241a5b02dfc135552f5af600b85047dcd0e4c3299cba754
 ```
 
 ## Run Bpf tools
