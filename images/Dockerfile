@@ -4,7 +4,11 @@ FROM centos:${OS_VERSION}
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/bcc/tools:/usr/share/bpftrace/tools
 
 #ARG OS_VERSION ARG KERN_VERSION ARG KERN_URL ARG KERN_TAR ARG HTTP_PROXY
-ARG OS_VERSION KERN_VERSION KERN_URL KERN_TAR HTTP_PROXY
+ARG OS_VERSION 
+ARG KERN_VERSION 
+ARG KERN_URL 
+ARG KERN_TAR 
+ARG HTTP_PROXY
 
 # No Need Update below
 RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
