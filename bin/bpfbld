@@ -1,4 +1,56 @@
 #!/usr/bin/bash
 
-if [[ $# -le 2
-#docker build --build-arg HTTP_PROXY=http://10.158.100.2:8080 --build-arg HTTPS_PROXY=http://10.158.100.2:8080 --build-arg OS_VERSION=
+usage()
+{
+        echo "$0 usage:"
+        echo "-k kernel info got from uname -r from target machine"
+        echo "-p: proxy ip"
+        echo "-s: os version got from cat /etc/redhat-release from target machine"
+        echo "-t: image tag"
+        echo "-h: help "
+        exit 0
+}
+while getopts k:p:s:t:h OPTION
+do
+        case "$OPTION" in
+        k) KERNEL=$OPTARG;;
+        p) PROXY="$OPTARG";;
+        s) OS_VER="$OPTARG";;
+        t) IMG_TAG="$OPTARG";;
+        h) usage;;
+        :) {
+                echo "$OPTARG need args";
+                usage;
+        };;
+        \?) {
+                echo "$OPTARG is invluad option";
+                 usage;
+        };;
+        esac
+done
+
+KERN_VER=$(echo $KERNEL | cut -d"-" -f1)
+KERN_VER_MAJOR=$(echo $KERN_VER | cut -d "." -f1)
+KERN_VER_MINOR=$(echo $KERN_VER | cut -d "." -f2)
+KERN_VER_PATCH=$(echo $KERN_VER | cut -d "." -f3)
+
+KERN_URL="https://mirrors.edge.kernel.org/pub/linux/kernel/v${KERN_VER_MAJOR}.x"
+if [[ $KERN_VER_PATCH == "0" ]]; then
+        KERN_TAR="linux-${KERN_VER_MAJOR}.${KERN_VER_MINOR}"
+else
+        KERN_TAR="linux-${KERN_VER_MAJOR}.${KERN_VER_MINOR}.${KERN_VER_PATCH}"
+fi
+
+echo $KERN_URL $KERN_TAR
+cd ../images
+docker build --build-arg HTTP_PROXY=http://${PROXY} \
+             --build-arg HTTPS_PROXY=http://${PROXY} \
+             --build-arg http_proxy=http://${PROXY} \
+             --build-arg https_proxy=http://${PROXY} \
+             --build-arg OS_VERSION=${OS_VER} \
+             --build-arg KERN_VERSION=${KERNEL} \
+             --build-arg KERN_URL=${KERN_URL} \
+             --build-arg KERN_TAR=${KERN_TAR} \
+             -t ${IMG_TAG} \
+             -f ./Dockerfile \
+             .
