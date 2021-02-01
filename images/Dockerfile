@@ -15,7 +15,7 @@ RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
     curl -s https://repos.baslab.org/bpftools.repo --output /etc/yum.repos.d/bpftools.repo && \
     yum install -y wget gcc make bc curl flex bison elfutils-libelf-devel \
         bcc bcc-tools bpftrace bpftrace-tools bpftool \
-        iproute sysstat strace &&  \
+        iproute sysstat strace net-tools &&  \
     yum clean all
 
 RUN mkdir -p /usr/src/linux && \

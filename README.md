@@ -10,14 +10,16 @@ Now this project supports:
 
 # BPF tool based debugging environment
 ## Customize Bpf Container image
-* Copy Config-* used by target host to this repos root directory
-* Add New Dockerfile same like with Dockerfile.centos.7.6.1810.kernel.4.18.0 and then update COPY cmd
-* And then update Kernel URL 
-* Last run "docker build -t xxx:yyy -f ./Dockerfile.mmm ."
+1. Copy Config-* used by target host to this repos images/config/.
+  
+2. Add New Dockerfile same like with Dockerfile.centos.7.6.1810.kernel.4.18.0 and then update COPY cmd, And then update Kernel URL, Last run "docker build -t xxx:yyy -f ./Dockerfile.mmm ."
+
+Or 
+2. ./bpfbld -k 4.18.0-193.el8.x86_64 -p 10.158.100.2:8080 -s 7.6.1810 -t bpftools:7.6.1810-4.18.0-20210201
 
 ## Start bpf container
 ```
-./bpfcli <imageid>
+./bpfcli <imageid> <host|container:cid>
 
 ./bpfcli  bpftools:7.6.1810-4.18.0-210126 host
 ./bpfcli bpftools:7.6.1810-4.18.0-20210127 container:9b53698015727fc31241a5b02dfc135552f5af600b85047dcd0e4c3299cba754
