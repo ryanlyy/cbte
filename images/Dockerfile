@@ -25,7 +25,7 @@ RUN mkdir -p /usr/src/linux && \
     tar --strip-components=1 -xvf ${KERN_TAR}.tar -C /usr/src/linux && \
     rm -rf ${KERN_TAR}.tar
 
-COPY ./config/config-${KERN_VERSION} /usr/src/linux/.config
+COPY ../config/config-${KERN_VERSION} /usr/src/linux/.config
 
 RUN cd /usr/src/linux &&  \
     make ARCH=x86 olddefconfig && \
