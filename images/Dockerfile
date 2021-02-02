@@ -11,10 +11,11 @@ ARG KERN_TAR
 ARG HTTP_PROXY
 
 # No Need Update below
+# add dtrace in systemtap-sdt-devel
 RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
     curl -s https://repos.baslab.org/bpftools.repo --output /etc/yum.repos.d/bpftools.repo && \
     yum install -y wget gcc make bc curl flex bison elfutils-libelf-devel \
-        bcc bcc-tools bpftrace bpftrace-tools bpftool \
+        bcc bcc-tools bpftrace bpftrace-tools bpftool systemtap-sdt-devel \
         iproute sysstat strace net-tools &&  \
     yum clean all
 
