@@ -1,6 +1,8 @@
 BCC - BPF (BSD Packet Filter) Complier Collection
 ---
 
+![image info](../pics/bcc.jpg)
+
 # Tools
 ## Single Purpose Tools
 1. opensnoop
