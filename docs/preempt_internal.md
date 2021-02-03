@@ -1,10 +1,11 @@
 Preempt Code Internal
 ---
 
-# 触发抢占： 
 ```
 #define TIF_NEED_RESCHED        3       /* rescheduling necessary */
 ```
+
+# 触发抢占： 
 ## WakeUp New Task:
 ```
 void wake_up_new_task(struct task_struct *p)

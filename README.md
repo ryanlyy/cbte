@@ -48,6 +48,7 @@ kprobe:__x64_sys_execve
 ```
 
 # Network tool based debugging environment
+The following tools now are covered in this image:
 * lsof
 * strace
 * tcpdump
@@ -70,10 +71,13 @@ kprobe:__x64_sys_execve
 Please refer to [Dockerfile](images/Dockerfile.nettools.7.6.1810)
 
 # For detail references please go to:
-*  [Network Debuging Tools](docs/nettools.md)
-*  [Generic Debugging Tips](docs/tips.md)
 *  [BPF Basic Concept](docs/concepts.md)
 *  [BCC Basic](docs/bcc.md)
 *  [BPFtrace Basic](docs/bpftrace.md)
-*  [CPU Debugging](docs/cpu.md)
+*  [CPU Perforamnce Debugging](docs/cpu_debug.md)
+*  [MEM Perforamnce Debugging](docs/mem_debug.md)
+*  [Network Perforance Debugging](docs/network_debug.md)
+*  [Disk Performance Debugging](docs/disk_debug.md)
+*  [Network Debuging Tools](docs/nettools.md)
+*  [Generic Debugging Tips](docs/tips.md)
 
