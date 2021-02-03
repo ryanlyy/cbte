@@ -27,7 +27,7 @@ CPU Perforamnce Debugging
         * 隐式请求
           * 缺页中断(page fault)
 ## CPU Scheduler
-![CPU Scheduler](../pics/cpu_scheduler.jpg)
+![CPU Scheduler](../pics/cpu_scheduler.JPG)
   * Schedule Unit
     * thread/task
     * Interrupt Hander(hardware interrupt, softare interrupt)
@@ -73,7 +73,7 @@ CPU Perforamnce Debugging
   * http://linuxperf.com/?p=211
 
 ## CPU Cache
-![CPU Cache](../pics/cpu_cache.jpg)
+![CPU Cache](../pics/cpu_cache.JPG)
 * Level 1
   * 指令缓存(I$)
   * 数据缓存(D$)
