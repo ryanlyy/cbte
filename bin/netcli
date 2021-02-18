@@ -1,1 +1,1 @@
-docker run -ti --rm -v /sys/kernel/debug/:/sys/kernel/debug:rw --net=host --pid=host --privileged  ${1}  bash
+docker run -ti --rm --hostname nettools-env -v /sys/kernel/debug/:/sys/kernel/debug:rw --net=host --pid=host --privileged  ${1}  bash

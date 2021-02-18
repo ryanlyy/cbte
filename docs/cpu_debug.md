@@ -135,6 +135,47 @@ CPU Perforamnce Debugging
   03:15:43      16    0.76    0.00    0.28    0.01    0.05    0.03    0.00    0.00    0.00   98.87
   03:15:43      17    0.75    0.00    0.28    0.01    0.05    0.05    0.00    0.00    0.00   98.86
   ```
+* sar
+  ```
+    -q  Report queue length and load averages. The following values are displayed:
+
+      runq-sz
+        Run queue length (number of tasks waiting for run time).
+
+      plist-sz
+        Number of tasks in the task list.
+
+      ldavg-1
+        System load average for the last minute.  The load average is calculated as the average number of runnable or running tasks (R state), and the  number  of  tasks  in  uninterruptible sleep (D state) over the specified interval.
+
+      ldavg-5
+        System load average for the past 5 minutes.
+
+      ldavg-15
+        System load average for the past 15 minutes.
+
+      blocked
+        Number of tasks currently blocked, waiting for I/O to complete.
+  ```
+
+  ```
+  [root@foss-ssc-7 /]# sar -q 1
+   Linux 4.18.0-193.el8.x86_64 (foss-ssc-7)        02/18/21        _x86_64_        (32 CPU)
+
+   06:50:13      runq-sz  plist-sz   ldavg-1   ldavg-5  ldavg-15   blocked
+   06:50:14            0      1196      0.03      0.10      0.15         0
+   06:50:15            0      1196      0.03      0.10      0.15         0
+   06:50:16            1      1196      0.03      0.10      0.15         0
+   06:50:17            0      1196      0.03      0.10      0.15         0
+   06:50:18            0      1196      0.03      0.10      0.15         0
+   06:50:19            1      1196      0.03      0.10      0.15         0
+   06:50:20            0      1196      0.02      0.09      0.15         0
+   06:50:33            0      1194      0.02      0.09      0.14         0
+   ^C
+
+  06:50:33            0      1194      0.02      0.09      0.14         0
+  Average:            0      1195      0.02      0.09      0.15         0
+  ```
 * perf
   ```bash
   [root@foss-ssc-7 /]# perf list | more
@@ -188,6 +229,8 @@ CPU Perforamnce Debugging
   05:51:31 calico-node      2076693 2076684   0 /bin/calico-node -bird-ready -felix-ready
   ```
 * exitsnoop
+  
+  跟踪进程的推出事件，打印进程的总<span style="color:red">**运行时长和退出原因**</span>
 
   例子
   ```
@@ -242,7 +285,31 @@ CPU Perforamnce Debugging
   ```
 * runqlen
 * runqslower
+  
+  列出运行队列中等待运行延迟超过阈值的线程名字和延迟时长
+
 * cpudist
+  
+  线程唤醒以后在CPU上执行的时长分布
+
+  ```
+  [root@foss-ssc-7 /]# cpudist
+  Tracing on-CPU time... Hit Ctrl-C to end.
+  ^C
+      usecs               : count     distribution
+          0 -> 1          : 38848    |******************************          |
+          2 -> 3          : 21445    |****************                        |
+          4 -> 7          : 51797    |****************************************|
+          8 -> 15         : 20107    |***************                         |
+          16 -> 31         : 31078    |***********************                 |
+          32 -> 63         : 45409    |***********************************     |
+          64 -> 127        : 41390    |*******************************         |
+        128 -> 255        : 13898    |**********                              |
+        256 -> 511        : 11634    |********                                |
+        512 -> 1023       : 676      |                                        |
+        1024 -> 2047       : 2        |                                        |
+  [root@foss-ssc-7 /]#
+  ```
 * cpufreq
 * profile
 * offcputime
