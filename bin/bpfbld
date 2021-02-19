@@ -52,5 +52,5 @@ docker build --build-arg HTTP_PROXY=http://${PROXY} \
              --build-arg KERN_URL=${KERN_URL} \
              --build-arg KERN_TAR=${KERN_TAR} \
              -t ${IMG_TAG} \
-             -f ./Dockerfile \
+             -f ./Dockerfile.centos${KERN_VER_MAJOR} \
              .

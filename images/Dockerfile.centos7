@@ -1,0 +1,41 @@
+ARG OS_VERSION=${OS_VERSION}
+FROM centos:${OS_VERSION}
+
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/bcc/tools:/usr/share/bpftrace/tools
+
+#ARG OS_VERSION ARG KERN_VERSION ARG KERN_URL ARG KERN_TAR ARG HTTP_PROXY
+ARG OS_VERSION 
+ARG KERN_VERSION 
+ARG KERN_URL 
+ARG KERN_TAR 
+ARG HTTP_PROXY
+
+# No Need Update below
+# add dtrace in systemtap-sdt-devel
+RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
+    curl -s https://repos.baslab.org/bpftools.repo --output /etc/yum.repos.d/bpftools.repo && \
+    yum install -y wget gcc make bc curl flex bison elfutils-libelf-devel \
+        bcc bcc-tools bpftrace bpftool bpftrace-tools systemtap-sdt-devel perf \
+        iproute sysstat strace net-tools unzip &&  \
+    yum clean all
+
+RUN cd /root && \
+    wget -O bpf-perf-tools-book.zip https://github.com/brendangregg/bpf-perf-tools-book/archive/master.zip && \
+    unzip bpf-perf-tools-book.zip && \
+    rm -rf unzip bpf-perf-tools-book.zip 
+    
+RUN mkdir -p /usr/src/linux && \
+    cd /usr/src/linux && \
+    wget ${KERN_URL}/${KERN_TAR}.tar.gz && \
+    gunzip ${KERN_TAR}.tar.gz && \
+    tar --strip-components=1 -xvf ${KERN_TAR}.tar -C /usr/src/linux && \
+    rm -rf ${KERN_TAR}.tar
+
+COPY ./config/config-${KERN_VERSION} /usr/src/linux/.config
+
+RUN cd /usr/src/linux &&  \
+    make ARCH=x86 olddefconfig && \
+    make ARCH=x86 prepare && \
+    mkdir -p /lib/modules/${KERN_VERSION} && \
+    ln -sf /usr/src/linux /lib/modules/${KERN_VERSION}/source && \
+    ln -sf /usr/src/linux /lib/modules/${KERN_VERSION}/build

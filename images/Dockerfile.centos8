@@ -12,14 +12,11 @@ ARG HTTP_PROXY
 
 # No Need Update below
 # add dtrace in systemtap-sdt-devel
-# For CENTOS7 uncomment the following line
-# For CENTOS8 comment the following line
-# RUN curl -s https://repos.baslab.org/bpftools.repo --output /etc/yum.repos.d/bpftools.repo
-# For CENTOS8 remove bpftrace-tools from the following yum
 RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
-    yum install -y wget gcc make bc curl flex bison elfutils-libelf-devel \
+    yum install -y python36 wget gcc make bc curl flex bison elfutils-libelf-devel \
         bcc bcc-tools bpftrace bpftool systemtap-sdt-devel perf \
         iproute sysstat strace net-tools unzip &&  \
+    ln -s /usr/bin/python3 /usr/bin/python && \
     yum clean all
 
 RUN cd /root && \
