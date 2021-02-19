@@ -234,6 +234,8 @@ Linux 4.18.0-193.el8.x86_64 (foss-ssc-7)        02/18/2021      _x86_64_        
 Tracking OOM event
 
 ## memleak
+Trace outstanding memory allocations that weren't freed. Supports both **user-mode** (-p) allocations made with **libc** functions and **kernel-mode** (no -p) allocations made with **kmalloc/kmem_cache_alloc/get_free_pages** and corresponding memory release functions.
+
 ## mmapsnoop
 ## brkstack
 ## shmsnoop

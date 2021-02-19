@@ -16,9 +16,14 @@ RUN echo "proxy=${HTTP_PROXY}" >> /etc/yum.conf && \
     curl -s https://repos.baslab.org/bpftools.repo --output /etc/yum.repos.d/bpftools.repo && \
     yum install -y wget gcc make bc curl flex bison elfutils-libelf-devel \
         bcc bcc-tools bpftrace bpftrace-tools bpftool systemtap-sdt-devel perf \
-        iproute sysstat strace net-tools &&  \
+        iproute sysstat strace net-tools unzip &&  \
     yum clean all
 
+RUN cd /root && \
+    wget -O bpf-perf-tools-book.zip https://github.com/brendangregg/bpf-perf-tools-book/archive/master.zip && \
+    unzip bpf-perf-tools-book.zip && \
+    rm -rf unzip bpf-perf-tools-book.zip && \
+    
 RUN mkdir -p /usr/src/linux && \
     cd /usr/src/linux && \
     wget ${KERN_URL}/${KERN_TAR}.tar.gz && \
