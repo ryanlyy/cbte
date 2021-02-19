@@ -1,4 +1,4 @@
 #docker run -ti --rm -v /usr/src:/usr/src:ro -v /lib/modules/:/lib/modules:ro -v /sys/kernel/debug/:/sys/kernel/debug:rw --net=host --pid=host --privileged quay.io/iovisor/bpftrace:latest tcplife.bt
 #docker run -ti --rm -v /sys/kernel/debug/:/sys/kernel/debug:rw --net=host --pid=host --privileged  bpftools:7.6.1810-4.18.0-210126  bash
 #docker run -ti --rm -v /sys/kernel/debug/:/sys/kernel/debug:rw --net=host --pid=host --privileged  ${1}  bash
-docker run -ti --rm --hostname troubleshooting-env -v /sys/kernel/debug/:/sys/kernel/debug:rw --net=$2 --pid=$2 --ipc=$2 --privileged  ${1}  bash
+docker run -ti --rm --hostname troubleshooting-env -v $(./getrootfs $2):/hcroot -v /sys/kernel/debug/:/sys/kernel/debug:rw --net=$2 --pid=$2 --ipc=$2 --privileged  ${1}  bash

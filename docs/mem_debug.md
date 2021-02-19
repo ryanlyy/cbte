@@ -236,12 +236,62 @@ Tracking OOM event
 ## memleak
 Trace outstanding memory allocations that weren't freed. Supports both **user-mode** (-p) allocations made with **libc** functions and **kernel-mode** (no -p) allocations made with **kmalloc/kmem_cache_alloc/get_free_pages** and corresponding memory release functions.
 
+```
+[root@troubleshooting-env Ch07_Memory]# memleak -p 1212420
+Attaching to pid 1212420, Ctrl+C to quit.
+[05:31:00] Top 10 stacks with outstanding allocations:
+        1000 bytes in 1 allocations from stack
+                main+0x1c [ml]
+                __libc_start_main+0xf3 [libc-2.28.so]
+                [unknown]
+[05:31:05] Top 10 stacks with outstanding allocations:
+        1000 bytes in 1 allocations from stack
+                main+0x1c [ml]
+                __libc_start_main+0xf3 [libc-2.28.so]
+                [unknown]
+[05:31:10] Top 10 stacks with outstanding allocations:
+        2000 bytes in 2 allocations from stack
+                main+0x1c [ml]
+                __libc_start_main+0xf3 [libc-2.28.so]
+                [unknown]
+```
+
 ## mmapsnoop
+Trace mmap(2) calls
 ## brkstack
+Count brk(2) syscalls with user stacks
+```
+   trace -U t:syscalls:sys_enter_brk
+   stackcount -PU t:syscalls:sys_enter_brk
+   ./brkstack.bt (located in book repo)
+```
 ## shmsnoop
+Trace shmget, shmat, shmdt, shmctl
+
 ## faults
+Count page faults with user/kernel stacks
+```
+   stackcount -U t:exceptions:page_fault_user
+   stackcount -U t:exceptions:page_fault_kernel
+   ./faults.bt
+```
 ## ffaults
+Count page faults by filename.
+
 ## vmscan
+Measure VM scanner shrink and reclaim times:q
+```
+[root@troubleshooting-env Ch07_Memory]# pwd
+/root/bpf-perf-tools-book-master/originals/Ch07_Memory
+[root@troubleshooting-env Ch07_Memory]# ./vmscan.bt
+Attaching 10 probes...
+TIME         S-SLABms  D-RECLAIMms  M-RECLAIMms KSWAPD WRITEPAGE
+05:24:17            0            0            0      0         0
+05:24:18            0            0            0      0         0
+05:24:19            0            0            0      0         0
+05:24:20            0            0            0      0         0
+05:24:21            0            0            0      0         0
+```
 ## drsnoop
 ## swapin
 ## hfaults
