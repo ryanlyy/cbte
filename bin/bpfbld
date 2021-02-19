@@ -34,6 +34,8 @@ KERN_VER_MAJOR=$(echo $KERN_VER | cut -d "." -f1)
 KERN_VER_MINOR=$(echo $KERN_VER | cut -d "." -f2)
 KERN_VER_PATCH=$(echo $KERN_VER | cut -d "." -f3)
 
+OS_VER_MAJOR=$(echo $OS_VER | cut -d "." -f1)
+
 KERN_URL="https://mirrors.edge.kernel.org/pub/linux/kernel/v${KERN_VER_MAJOR}.x"
 if [[ $KERN_VER_PATCH == "0" ]]; then
         KERN_TAR="linux-${KERN_VER_MAJOR}.${KERN_VER_MINOR}"
@@ -52,5 +54,5 @@ docker build --build-arg HTTP_PROXY=http://${PROXY} \
              --build-arg KERN_URL=${KERN_URL} \
              --build-arg KERN_TAR=${KERN_TAR} \
              -t ${IMG_TAG} \
-             -f ./Dockerfile.centos${KERN_VER_MAJOR} \
+             -f ./Dockerfile.centos${OS_VER_MAJOR} \
              .
