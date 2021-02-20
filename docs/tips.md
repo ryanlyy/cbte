@@ -1,5 +1,8 @@
 Generic Tips used by Linux Perforamnce Debugging
 ---
+- [List all kernel based program](#list-all-kernel-based-program)
+- [List all instrument and arguments](#list-all-instrument-and-arguments)
+- [Linux 60 seconds Analysis](#linux-60-seconds-analysis)
 
 # List all kernel based program
 ```

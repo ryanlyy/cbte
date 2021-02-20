@@ -1,5 +1,24 @@
 Network Debugging Tools
 ---
+- [lsof](#lsof)
+- [strace](#strace)
+- [tcpdump](#tcpdump)
+- [atop](#atop)
+- [iftop](#iftop)
+- [htop](#htop)
+- [iotop](#iotop)
+- [nethogs](#nethogs)
+- [iperf3](#iperf3)
+- [qperf](#qperf)
+- [iproute/iproute-tc](#iprouteiproute-tc)
+- [iputils](#iputils)
+- [net-tools](#net-tools)
+- [traceroute](#traceroute)
+- [bind-utils](#bind-utils)
+- [ethtool](#ethtool)
+- [nmap/nmap-ncat](#nmapnmap-ncat)
+- [nmon](#nmon)
+
 
 # lsof
 List open files

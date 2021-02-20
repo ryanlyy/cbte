@@ -1,5 +1,17 @@
 Concepts of Bpftrace and BCC
 ---
+- [Instrumentation](#instrumentation)
+  - [kprobes](#kprobes)
+  - [kretprobe](#kretprobe)
+  - [uprobes](#uprobes)
+  - [uretprobe](#uretprobe)
+  - [tracepoint](#tracepoint)
+  - [USDT: u:lib:name](#usdt-ulibname)
+  - [dynamic USDT (JAVA)](#dynamic-usdt-java)
+  - [PMC](#pmc)
+  - [perf_events](#perf_events)
+
+
 ![image info](../pics/bcc_tracing_tools_2019.png)
 
 # Instrumentation 

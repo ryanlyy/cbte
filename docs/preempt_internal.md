@@ -1,5 +1,13 @@
 Preempt Code Internal
 ---
+- [触发抢占：](#触发抢占)
+  - [WakeUp New Task:](#wakeup-new-task)
+  - [Set nice:](#set-nice)
+  - [Migration CPU:](#migration-cpu)
+- [执行抢占: Kernel Internal](#执行抢占-kernel-internal)
+  - [syscall return user mode:](#syscall-return-user-mode)
+  - [Interrupt return to user mode](#interrupt-return-to-user-mode)
+  - [Interrupt return to Kernel mode](#interrupt-return-to-kernel-mode)
 
 ```
 #define TIF_NEED_RESCHED        3       /* rescheduling necessary */
