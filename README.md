@@ -7,8 +7,8 @@ Container Based Troubleshooting Environment
   - [Run Bpf tools](#run-bpf-tools)
   - [NOTE](#note)
 - [Network tool based debugging environment](#network-tool-based-debugging-environment)
-- [For detail references please go to:](#for-detail-references-please-go-to)
-- [References](#references)
+- [Internal References](#internal-references)
+- [External References](#external-references)
 
 As you know following container widely usage and security concern that most of debugging tools are removed from container image. But debugging is always there because there is no software w/o bug in the world. And it is not allowed to install debugging tools into target machine. In order to solve this issue, this project help to build debugging environment w/o intall tools into target machine.
 
@@ -77,7 +77,7 @@ The following tools now are covered in this image:
 * nmap/nmap-ncat
 * nmon
 
-Please refer to [Dockerfile](images/Dockerfile.nettools.7.6.1810)
+For Dockerfile please refer to [Dockerfile](images/Dockerfile.nettools.7.6.1810)
 
 # Internal References
 *  [BPF Basic Concept](docs/concepts.md)
