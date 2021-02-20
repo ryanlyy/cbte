@@ -79,7 +79,7 @@ The following tools now are covered in this image:
 
 Please refer to [Dockerfile](images/Dockerfile.nettools.7.6.1810)
 
-# For detail references please go to:
+# Internal References
 *  [BPF Basic Concept](docs/concepts.md)
 *  [BCC Basic](docs/bcc.md)
 *  [BPFtrace Basic](docs/bpftrace.md)
@@ -90,7 +90,7 @@ Please refer to [Dockerfile](images/Dockerfile.nettools.7.6.1810)
 *  [Network Debuging Tools](docs/nettools.md)
 *  [Generic Debugging Tips](docs/tips.md)
 
-# References
+# External References
 * [BPF Perf Tools Book Page](https://github.com/brendangregg/bpf-perf-tools-book)
 * [Brendan Gregg's Perf Tools](https://github.com/brendangregg/perf-tools)
 * [Brendan Greggs's Homepage](http://www.brendangregg.com/)
