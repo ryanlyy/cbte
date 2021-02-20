@@ -135,6 +135,8 @@ bpftrace -l 'kprobe:*'
 /pid/
 
 /pid == 124/
+
+/comm == "bird" && (pid == 124 || pid == 125)/
 ```
 
 ## Action
