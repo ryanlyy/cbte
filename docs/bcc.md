@@ -1,6 +1,9 @@
 BCC - BPF (BSD Packet Filter) Complier Collection
 ---
 
+- [Tools](#tools)
+  - [Single Purpose Tools](#single-purpose-tools)
+  - [Multiple Purposes Tools](#multiple-purposes-tools)
 ![image info](../pics/bcc.jpg)
 
 # Tools

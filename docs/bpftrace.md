@@ -1,6 +1,22 @@
 bpftrace = BPF + BCC
 ---
 
+- [Monitoring Tools](#monitoring-tools)
+- [bpftrace progrmaming](#bpftrace-progrmaming)
+  - [Usage](#usage)
+  - [Program Structure](#program-structure)
+  - [comments](#comments)
+  - [Probe Format](#probe-format)
+    - [type:](#type)
+    - [Identifiler (w/ expression like *)](#identifiler-w-expression-like-)
+  - [Filter](#filter)
+  - [Action](#action)
+  - [Action Embedded Functions](#action-embedded-functions)
+  - [Variable](#variable)
+  - [Mapping functions](#mapping-functions)
+  - [bpftrace control flow](#bpftrace-control-flow)
+  - [Debugging](#debugging)
+
 ![image info](../pics/bpftrace.jpg)
 
 # Monitoring Tools
