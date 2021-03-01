@@ -1,6 +1,9 @@
 Container Based Troubleshooting Environment
 ---
 
+- [Perforamence Term](#perforamence-term)
+- [Performance Methodologies](#performance-methodologies)
+  - [USE Method](#use-method)
 - [BPF tool based debugging environment](#bpf-tool-based-debugging-environment)
   - [Customize Bpf Container image](#customize-bpf-container-image)
   - [Start bpf container](#start-bpf-container)
@@ -16,7 +19,43 @@ Now this project supports:
 * BPF tool based debugging environment
 * Network tool based debugging environment
 
+# Perforamence Term
+* SUT: System Under Test (受测系统)
+* USE: Utilization Saturation errors (使用率，饱和度，错误)
 
+# Performance Methodologies
+## USE Method
+
+* Resource
+  * Hardware(CPU, memory, bus ...), software -> Metrics
+    * CPU
+    * Memory
+    * Network Interface
+    * Storage
+    * Controller: storage, network
+    * Interconnect: cpu, memory, io
+  * Software
+    * Mutex Locks
+    * Thread Pools
+    * Process/Thread Capacity
+    * File Descriptor Capacity
+* 
+* Metrics
+  * Utilization
+  * Saturation
+  
+    Waiting queue... means it is saturation
+
+  * Erros
+  
+* Procedure
+  
+  Error is first
+
+  ![USE Method Procedure](pics/USE_Method_procedure.JPG)
+
+
+  
 # BPF tool based debugging environment
 ## Customize Bpf Container image
 1. Copy Config-* used by target host to this repos images/config/.
