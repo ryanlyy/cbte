@@ -10,6 +10,7 @@ Container Based Troubleshooting Environment
   - [Run Bpf tools](#run-bpf-tools)
   - [NOTE](#note)
 - [Network tool based debugging environment](#network-tool-based-debugging-environment)
+- [Linux ELF Symbol Debugging Tools](#linux-elf-symbol-debugging-tools)
 - [Internal References](#internal-references)
 - [External References](#external-references)
 
@@ -117,6 +118,19 @@ The following tools now are covered in this image:
 * nmon
 
 For Dockerfile please refer to [Dockerfile](images/Dockerfile.nettools.7.6.1810)
+
+# Linux ELF Symbol Debugging Tools
+* nm
+* objdump
+* strings
+* addr2line
+* readelf
+
+Above tools location: binutils-2.27-43.base.el7_8.1.x86_64
+
+For detail please refer to:
+* [ELF Debugging Tools](docs/elf.md)
+* [GNU Binary Utilities](https://docs.adacore.com/live/wave/binutils-stable/html/binutils/binutils.html)
 
 # Internal References
 *  [BPF Basic Concept](docs/concepts.md)
