@@ -37,8 +37,20 @@ void usage()
  *	fields of the line we are handed, and further, that they contain
  *	only numbers and single spaces.
  */
-void get_stats(char *buf, unsigned int *run_ticks, unsigned int *wait_ticks,
-    unsigned int *nran)
+
+/*
+/proc/<pid>/schedstat
+----------------
+schedstats also adds a new /proc/<pid>/schedstat file to include some of
+the same information on a per-process level.  There are three fields in
+this file correlating for that process to:
+     1) time spent on the cpu
+     2) time spent waiting on a runqueue
+     3) # of timeslices run on this cpu
+*/
+
+void get_stats(char *buf, unsigned long long *run_ticks, unsigned long long *wait_ticks,
+    unsigned long long *nran)
 {
     char *ptr;
 
@@ -52,14 +64,14 @@ void get_stats(char *buf, unsigned int *run_ticks, unsigned int *wait_ticks,
 	ptr++;
 
     /* first number -- run_ticks */
-    *run_ticks = atoi(ptr);
+    *run_ticks = atoll(ptr);
     while (*ptr && isdigit(*ptr))
 	ptr++;
     while (*ptr && isblank(*ptr))
 	ptr++;
 
     /* second number -- wait_ticks */
-    *wait_ticks = atoi(ptr);
+    *wait_ticks = atoll(ptr);
     while (*ptr && isdigit(*ptr))
 	ptr++;
     while (*ptr && isblank(*ptr))
@@ -94,8 +106,8 @@ int main(int argc, char *argv[])
     int c;
     unsigned int sleeptime = 5, pid = 0, verbose = 0;
     char id[32];
-    unsigned int run_ticks, wait_ticks, nran;
-    unsigned int orun_ticks=0, owait_ticks=0, oran=0;
+    unsigned long long run_ticks, wait_ticks, nran;
+    unsigned long long orun_ticks=0, owait_ticks=0, oran=0;
 
     Progname = argv[0];
     id[0] = 0;
@@ -137,7 +149,7 @@ int main(int argc, char *argv[])
 	    get_stats(procbuf, &run_ticks, &wait_ticks, &nran);
 
 	    if (verbose)
-		printf("%s %d(%d) %d(%d) %d(%d) %4.2f %4.2f\n",
+		printf("%s %llu(%d) %llu(%d) %d(%d) avgrun %4.2f avgwait %4.2f\n",
 		    id, run_ticks, run_ticks - orun_ticks,
 		    wait_ticks, wait_ticks - owait_ticks,
 		    nran, nran - oran,
@@ -156,9 +168,6 @@ int main(int argc, char *argv[])
 	    orun_ticks = run_ticks;
 	    owait_ticks = wait_ticks;
 	    sleep(sleeptime);
-	    fp = fopen(statname,"r");
-	    if (!fp)
-		    break;
     }
     if (id[0])
 	printf("Process %s has exited.\n", id);
