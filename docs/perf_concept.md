@@ -11,6 +11,9 @@ Performance Debugging Concept
   - [/proc](#proc)
   - [/sys](#sys)
   - [Delay Accouting](#delay-accouting)
+- [Application](#application)
+  - [Appliction Performance Objective](#appliction-performance-objective)
+  - [Application Methods and Analysis](#application-methods-and-analysis)
 - [Tools](#tools)
   - [Counter](#counter)
   - [Tracing](#tracing)
@@ -91,7 +94,124 @@ https://www.kernel.org/doc/Documentation/
 https://elixir.bootlin.com/linux/v4.1/source/Documentation/accounting/getdelays.c
 https://elixir.bootlin.com/linux/v5.12/source/tools/accounting/getdelays.c
 
+* CPU Scheduler Daly
+* Block IO Delay
+* Page Swapping Delay
+* Memory Reclaim Delay
 
+```
+[root@foss-ssc-1 src]# ./getdelays -dp 3258789
+print delayacct stats ON
+PID     3258789
+
+
+CPU             count     real total  virtual total    delay total  delay average
+                   51       24290037       26014303        2015118          0.040ms
+IO              count    delay total  delay average
+                    0              0              0ms
+SWAP            count    delay total  delay average
+                    0              0              0ms
+RECLAIM         count    delay total  delay average
+                    0              0              0ms
+[root@foss-ssc-1 src]#
+```
+
+```
+/* Delay accounting fields start
+	 *
+	 * All values, until comment "Delay accounting fields end" are
+	 * available only if delay accounting is enabled, even though the last
+	 * few fields are not delays
+	 *
+	 * xxx_count is the number of delay values recorded
+	 * xxx_delay_total is the corresponding cumulative delay in nanoseconds
+	 *
+	 * xxx_delay_total wraps around to zero on overflow
+	 * xxx_count incremented regardless of overflow
+	 */
+
+	/* Delay waiting for cpu, while runnable
+	 * count, delay_total NOT updated atomically
+	 */
+	__u64	cpu_count __attribute__((aligned(8)));
+	__u64	cpu_delay_total;
+
+	/* Following four fields atomically updated using task->delays->lock */
+
+	/* Delay waiting for synchronous block I/O to complete
+	 * does not account for delays in I/O submission
+	 */
+	__u64	blkio_count;
+	__u64	blkio_delay_total;
+
+	/* Delay waiting for page fault I/O (swap in only) */
+	__u64	swapin_count;
+	__u64	swapin_delay_total;
+
+	/* cpu "wall-clock" running time
+	 * On some architectures, value will adjust for cpu time stolen
+	 * from the kernel in involuntary waits due to virtualization.
+	 * Value is cumulative, in nanoseconds, without a corresponding count
+	 * and wraps around to zero silently on overflow
+	 */
+	__u64	cpu_run_real_total;
+
+	/* cpu "virtual" running time
+	 * Uses time intervals seen by the kernel i.e. no adjustment
+	 * for kernel's involuntary waits due to virtualization.
+	 * Value is cumulative, in nanoseconds, without a corresponding count
+	 * and wraps around to zero silently on overflow
+	 */
+	__u64	cpu_run_virtual_total;
+	/* Delay accounting fields end */
+```
+# Application
+* Operation
+  * Network IO
+  * Disk IO
+  * CPU
+* CPU model
+  * User
+  * Kernel
+* Configuration
+  * Performance Parameter (i.e: cache/buffer, threads etc.)
+* PM or Counter
+* Logging
+## Appliction Performance Objective
+* Low Delay: Quick Response
+* Hight Throughput: Data transmission
+* Low Resource Utilization
+
+指标量化
+
+IO开销包括：
+
+  * 初始化缓冲区
+  * 系统调用
+  * 上下文切换
+  * 分配内核元数据
+  * 检查进程的权限和限制
+  * 映射地址到设备
+  * 执行内核和驱动
+  * 释放元数据和缓冲区
+
+## Application Methods and Analysis
+* 线程状态分析
+  
+  其目的是分辨应用程序的时间用在了什么地方？
+
+  六种状态：
+  * 执行： on-CPU ---  top
+  * 可运行：等待轮上CPU --- [latency.c](../src/latency.c) (/proc/pid/schedstat)
+  * 匿名换页：可运行但因等待匿名换页而受阻 -- [getdelays.c](../src/getdelays-4.18.c) (netlink taskstat accounting -- SWAP)
+  * 睡眠： 等待IO包括Network，Disk --- iotop/pidstat -d / getdelays.c (netlink taskstat IO) /pstack
+  * 锁：等待获取同步锁 --- strace/ pstack etc.
+  * 空闲：等待工作
+* CPU刨析
+* 系统调用分析 --- strace
+* IO分析 --- strace
+* 工作负载特征归纳
+* dd
 
 # Tools
 ## Counter
