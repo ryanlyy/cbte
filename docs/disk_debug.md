@@ -4,6 +4,7 @@ Disk Performance Debugging
 - [Filesystem Basic](#filesystem-basic)
   - [I/O stack](#io-stack)
   - [VFS](#vfs)
+  - [特殊文件系统](#特殊文件系统)
 - [Filesystem Classical Tools](#filesystem-classical-tools)
   - [df](#df)
   - [mount](#mount)
@@ -71,7 +72,15 @@ Disk Performance Debugging
 * FS Cache
 * Read-Ahead (预读取或预缓存)
 * Write-Back (写回)
-* 
+
+## 特殊文件系统
+* /tmp
+* /dev
+* /proc
+* /sys
+
+
+
 # Filesystem Classical Tools
 ## df
 ```
